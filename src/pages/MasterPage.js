@@ -22,6 +22,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { RestaurantMenu, RoomService } from "@material-ui/icons";
+import { logoutSuccess } from "../actions";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
 }));
 
-const MasterPage = () => {
+const MasterPage = ({ logoutSuccess, auth }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -106,8 +108,8 @@ const MasterPage = () => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>{auth.data.name}</MenuItem>
+              <MenuItem onClick={logoutSuccess}>Đăng xuất</MenuItem>
             </Menu>
           </div>
         </Toolbar>
@@ -151,4 +153,8 @@ const MasterPage = () => {
   );
 };
 
-export default MasterPage;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutSuccess })(MasterPage);
