@@ -7,15 +7,22 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
   media: {
     height: 140,
   },
-});
+  button: {
+    display: "flex",
+
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
 
 export default function FoodItem({ item, onEdit, onDelete }) {
   const classes = useStyles();
@@ -23,7 +30,11 @@ export default function FoodItem({ item, onEdit, onDelete }) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={item.image} />
+        <CardMedia
+          className={classes.media}
+          image={item.image}
+          title={item.image}
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {item.name}
@@ -31,12 +42,14 @@ export default function FoodItem({ item, onEdit, onDelete }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" onClick={onEdit}>
-          Sửa
-        </Button>
-        <Button size="small" color="primary" onClick={onDelete}>
-          Xóa
-        </Button>
+        <ButtonGroup
+          color="primary"
+          aria-label="outlined primary button group"
+          className={classes.button}
+        >
+          <Button onClick={onEdit}>Sửa</Button>
+          <Button onClick={onDelete}>Xóa</Button>
+        </ButtonGroup>
       </CardActions>
     </Card>
   );

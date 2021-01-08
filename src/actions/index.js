@@ -160,3 +160,9 @@ export const addLog = (data) => ({
   type: actionTypes.ADD_LOG,
   data,
 });
+
+//setting
+export const updateSetting = (data) => ({
+  type: actionTypes.UPDATE_SETTING,
+  data,
+});

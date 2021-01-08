@@ -13,7 +13,7 @@ export function getAllFood() {
 
 export function getSingleFood(data) {
   return axios
-    .get(`/foods/${data.foodId}`)
+    .get(`/foods/${data}`)
     .then((res) => {
       return res.data;
     })
@@ -24,7 +24,7 @@ export function getSingleFood(data) {
 
 export function createFood(data) {
   return axios
-    .post("/foods", data)
+    .post("/foods", data.body)
     .then((res) => {
       return res.data;
     })
@@ -46,7 +46,7 @@ export function updateFood(data) {
 
 export function deleteFood(data) {
   return axios
-    .delete(`/foods/${data.foodId}`)
+    .delete(`/foods/${data}`)
     .then((res) => {
       return res.data;
     })

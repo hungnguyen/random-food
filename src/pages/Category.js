@@ -1,23 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import { Link } from "react-router-dom";
-import { Grid, Typography } from "@material-ui/core";
-import Icon from "@material-ui/core/Icon";
 
+import { Grid } from "@material-ui/core";
+
+import CategoryItem from "../components/CategoryItem";
 import { connect } from "react-redux";
 
 import { getAllCategory } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(1),
-      width: theme.spacing(16),
-      height: theme.spacing(16),
-    },
+    flexGrow: 1,
+    marginTop: 100,
   },
 }));
 
@@ -26,26 +20,20 @@ const Category = ({ category, getAllCategory }) => {
 
   React.useEffect(() => {
     getAllCategory();
-  }, []);
+  }, [getAllCategory]);
 
   return (
-    <div className={classes.root}>
-      <Grid container justify="center">
-        {category.list.Category &&
-          category.list.Category.map((item) => {
-            return (
-              <Grid item md={3}>
-                <Link to={`/food/${item._id}`}>
-                  <Paper elevation={3}>
-                    <Icon color={item.color}>{item.icon}</Icon>
-                    <Typography>{item.name}</Typography>
-                  </Paper>
-                </Link>
-              </Grid>
-            );
-          })}
+    <Grid container className={classes.root} justify="center">
+      <Grid item container xs={12} md={6} spacing={2}>
+        {category.list.map((item) => {
+          return (
+            <Grid item xs={6} key={item._id}>
+              <CategoryItem item={item} />
+            </Grid>
+          );
+        })}
       </Grid>
-    </div>
+    </Grid>
   );
 };
 

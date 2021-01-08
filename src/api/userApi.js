@@ -24,7 +24,7 @@ export function getSingleUser(data) {
 
 export function createUser(data) {
   return axios
-    .post("/users", data)
+    .post("/users", data.body)
     .then((res) => {
       return res.data;
     })

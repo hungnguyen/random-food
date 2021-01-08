@@ -24,7 +24,7 @@ export function getSingleCategory(data) {
 
 export function createCategory(data) {
   return axios
-    .post("/categories", data)
+    .post("/categories", data.body)
     .then((res) => {
       return res.data;
     })

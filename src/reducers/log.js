@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initState = {
-  list: {},
+  list: [],
 };
 
 export default function log(state = initState, action) {

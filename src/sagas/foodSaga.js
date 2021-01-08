@@ -23,8 +23,8 @@ function* getSingleFood(action) {
 
 function* createFood(action) {
   try {
-    yield call(foodApi.createFood, action.data);
-    yield put(actions.createFoodSuccess);
+    const res = yield call(foodApi.createFood, action.data);
+    yield put(actions.createFoodSuccess(res));
   } catch (e) {
     yield put(actions.addLog(e));
   }
@@ -33,7 +33,7 @@ function* createFood(action) {
 function* updateFood(action) {
   try {
     yield call(foodApi.updateFood, action.data);
-    yield put(actions.updateFoodSuccess);
+    yield put(actions.updateFoodSuccess(action.data));
   } catch (e) {
     yield put(actions.addLog(e));
   }
@@ -42,16 +42,16 @@ function* updateFood(action) {
 function* deleteFood(action) {
   try {
     yield call(foodApi.deleteFood, action.data);
-    yield put(actions.deleteFoodSuccess);
+    yield put(actions.deleteFoodSuccess(action.data));
   } catch (e) {
     yield put(actions.addLog(e));
   }
 }
 
 export default function* foodSaga() {
-  yield takeLatest(actionTypes.GET_ALL_CATEGORY, getAllFood);
-  yield takeLatest(actionTypes.GET_SINGLE_CATEGORY, getSingleFood);
-  yield takeLatest(actionTypes.CREATE_CATEGORY, createFood);
-  yield takeLatest(actionTypes.UPDATE_CATEGORY, updateFood);
-  yield takeLatest(actionTypes.DELETE_CATEGORY, deleteFood);
+  yield takeLatest(actionTypes.GET_ALL_FOOD, getAllFood);
+  yield takeLatest(actionTypes.GET_SINGLE_FOOD, getSingleFood);
+  yield takeLatest(actionTypes.CREATE_FOOD, createFood);
+  yield takeLatest(actionTypes.UPDATE_FOOD, updateFood);
+  yield takeLatest(actionTypes.DELETE_FOOD, deleteFood);
 }

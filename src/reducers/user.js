@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initState = {
   loading: false,
-  list: {},
+  list: [],
   item: {},
 };
 
@@ -11,7 +11,7 @@ export default function user(state = initState, action) {
     case actionTypes.GET_ALL_USER:
       return { ...state, loading: true };
     case actionTypes.GET_ALL_USER_SUCCESS:
-      return { ...state, loading: false, data: action.data };
+      return { ...state, loading: false, data: action.data.User };
     case actionTypes.GET_SINGLE_USER:
       return { ...state, loading: true };
     case actionTypes.GET_SINGLE_USER_SUCCESS:

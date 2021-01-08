@@ -5,6 +5,7 @@ import log from "./log";
 import user from "./user";
 import food from "./food";
 import category from "./category";
+import setting from "./setting";
 
 const rootReducer = combineReducers({
   auth,
@@ -12,5 +13,6 @@ const rootReducer = combineReducers({
   user,
   food,
   category,
+  setting,
 });
 export default rootReducer;

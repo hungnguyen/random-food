@@ -1,14 +1,22 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Input from "@material-ui/core/Input";
 
 import { connect } from "react-redux";
-import { getSingleFood, updateFood } from "../actions";
+import { getSingleFood, updateFood, createFood } from "../actions";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 function FoodModal({
   open,
@@ -18,24 +26,40 @@ function FoodModal({
   getSingleFood,
   updateFood,
   categoryId,
+  createFood,
 }) {
-  const [updateObj, setUpdateObj] = React.useState({ categoryId });
+  const classes = useStyles();
+  const init = {
+    categoryId,
+    name: "",
+    image: "",
+  };
+  const [updateObj, setUpdateObj] = React.useState(init);
 
   React.useEffect(() => {
-    if (foodId) {
+    if (foodId !== 0) {
       getSingleFood(foodId);
     }
   }, [foodId, getSingleFood]);
 
   React.useEffect(() => {
-    setUpdateObj(food.item);
-  }, [food.item, setUpdateObj]);
-
+    if (foodId !== 0) {
+      setUpdateObj(food.item);
+    }
+  }, [food.item, setUpdateObj, foodId]);
+  const resetForm = () => {
+    setUpdateObj(init);
+  };
   const handleSave = () => {
-    updateFood({
-      foodId,
-      body: updateObj,
-    });
+    if (foodId !== 0) {
+      updateFood({
+        foodId,
+        body: updateObj,
+      });
+    } else {
+      createFood({ body: updateObj });
+    }
+    resetForm();
     onClose();
   };
   const handleChange = (e) => {
@@ -51,22 +75,25 @@ function FoodModal({
       >
         <DialogTitle id="alert-dialog-title">Món ăn</DialogTitle>
         <DialogContent>
-          <Input name="categoryId" value={updateObj.categoryId} type="hidden" />
-          <TextField
-            name="name"
-            label="Tên món ăn"
-            type="text"
-            value={updateObj.name}
-            onChange={handleChange}
-          />
-          <TextField
-            name="image"
-            label="Hình ảnh"
-            type="text"
-            placeholder="http://"
-            value={updateObj.iamge}
-            onChange={handleChange}
-          />
+          <form className={classes.root} noValidate autoComplete="off">
+            <TextField
+              name="name"
+              label="Tên món ăn"
+              type="text"
+              value={updateObj.name}
+              onChange={handleChange}
+              fullWidth
+            />
+            <TextField
+              name="image"
+              label="Hình ảnh"
+              type="text"
+              placeholder="http://"
+              value={updateObj.image}
+              onChange={handleChange}
+              fullWidth
+            />
+          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
@@ -85,6 +112,8 @@ const mapStateToProps = (state) => ({
   food: state.food,
 });
 
-export default connect(mapStateToProps, { getSingleFood, updateFood })(
-  FoodModal
-);
+export default connect(mapStateToProps, {
+  getSingleFood,
+  updateFood,
+  createFood,
+})(FoodModal);

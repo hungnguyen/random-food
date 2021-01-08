@@ -49,9 +49,9 @@ function* deleteUser(action) {
 }
 
 export default function* userSaga() {
-  yield takeLatest(actionTypes.GET_ALL_CATEGORY, getAllUser);
-  yield takeLatest(actionTypes.GET_SINGLE_CATEGORY, getSingleUser);
-  yield takeLatest(actionTypes.CREATE_CATEGORY, createUser);
-  yield takeLatest(actionTypes.UPDATE_CATEGORY, updateUser);
-  yield takeLatest(actionTypes.DELETE_CATEGORY, deleteUser);
+  yield takeLatest(actionTypes.GET_ALL_USER, getAllUser);
+  yield takeLatest(actionTypes.GET_SINGLE_USER, getSingleUser);
+  yield takeLatest(actionTypes.CREATE_USER, createUser);
+  yield takeLatest(actionTypes.UPDATE_USER, updateUser);
+  yield takeLatest(actionTypes.DELETE_USER, deleteUser);
 }

@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initState = {
   loading: false,
-  list: {},
+  list: [],
   item: {},
 };
 
@@ -12,7 +12,7 @@ export default function category(state = initState, action) {
     case actionTypes.GET_ALL_CATEGORY:
       return { ...state, loading: true };
     case actionTypes.GET_ALL_CATEGORY_SUCCESS:
-      return { ...state, loading: false, list: action.data };
+      return { ...state, loading: false, list: action.data.Category };
     case actionTypes.GET_SINGLE_CATEGORY:
       return { ...state, loading: true };
     case actionTypes.GET_SINGLE_CATEGORY_SUCCESS:
