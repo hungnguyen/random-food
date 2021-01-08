@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
   bottomLink: {
     color: "inherit",
   },
+  offset: theme.mixins.toolbar,
 }));
 
 const MasterPage = () => {
@@ -64,7 +65,7 @@ const MasterPage = () => {
   return (
     <Router>
       <CssBaseline />
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <NavLink to="/" className={classes.link}>
             <IconButton
@@ -78,7 +79,7 @@ const MasterPage = () => {
           </NavLink>
 
           <Typography variant="h6" className={classes.title}>
-            Photos
+            iMeal
           </Typography>
           <div>
             <IconButton
@@ -111,20 +112,19 @@ const MasterPage = () => {
           </div>
         </Toolbar>
       </AppBar>
+      <Toolbar />
       <Container>
-        <div>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/category">
-              <Category />
-            </Route>
-            <Route path="/food/:categoryId">
-              <Food />
-            </Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/category">
+            <Category />
+          </Route>
+          <Route path="/food/:categoryId">
+            <Food />
+          </Route>
+        </Switch>
         <BottomNavigation
           value={value}
           onChange={(event, newValue) => {

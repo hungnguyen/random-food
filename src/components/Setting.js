@@ -11,9 +11,9 @@ import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    marginTop: 30,
     display: "flex",
     justifyContent: "center",
+    marginTop: 30,
   },
   margin: {
     height: theme.spacing(3),
