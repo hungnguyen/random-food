@@ -7,10 +7,6 @@ import {
   ListItemAvatar,
   ListItemText,
   Button,
-  CircularProgress,
-  Snackbar,
-  Paper,
-  Slide,
   Divider,
 } from "@material-ui/core";
 import React from "react";
