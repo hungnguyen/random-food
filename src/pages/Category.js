@@ -1,14 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import {
-  Grid,
-  CircularProgress,
-  Snackbar,
-  Paper,
-  Slide,
-} from "@material-ui/core";
-
+import { Grid } from "@material-ui/core";
+import Loading from "../components/Loading";
 import CategoryItem from "../components/CategoryItem";
 import { connect } from "react-redux";
 
@@ -19,14 +13,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     marginTop: 100,
   },
-  loading: {
-    width: "60px",
-    height: "60px",
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    display: "flex",
-  },
 }));
 
 const Category = ({ category, getAllCategory }) => {
@@ -35,9 +21,7 @@ const Category = ({ category, getAllCategory }) => {
   React.useEffect(() => {
     getAllCategory();
   }, [getAllCategory]);
-  const slideTransition = (props) => {
-    return <Slide {...props} direction="down" />;
-  };
+
   return (
     <>
       <Grid container className={classes.root} justify="center">
@@ -51,19 +35,7 @@ const Category = ({ category, getAllCategory }) => {
           })}
         </Grid>
       </Grid>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        open={category.loading}
-        TransitionComponent={slideTransition}
-        key=""
-      >
-        <Paper className={classes.loading}>
-          <CircularProgress size={30} />
-        </Paper>
-      </Snackbar>
+      <Loading open={category.loading} />
     </>
   );
 };

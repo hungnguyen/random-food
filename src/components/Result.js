@@ -18,21 +18,13 @@ import { connect } from "react-redux";
 import { getAllCategory, getAllFood } from "../actions";
 import { Cached } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Loading from "./Loading";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     marginTop: 30,
     display: "flex",
     paddingBottom: 50,
-  },
-  loading: {
-    width: "60px",
-    height: "60px",
-    borderRadius: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    display: "flex",
   },
 }));
 
@@ -62,9 +54,7 @@ const Result = ({
 
     return selected;
   };
-  const slideTransition = (props) => {
-    return <Slide {...props} direction="down" />;
-  };
+
   return (
     <>
       <Grid container className={classes.root}>
@@ -103,19 +93,7 @@ const Result = ({
           </Button>
         </Grid>
       </Grid>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        open={category.loading || food.loading}
-        TransitionComponent={slideTransition}
-        key=""
-      >
-        <Paper className={classes.loading}>
-          <CircularProgress size={30} />
-        </Paper>
-      </Snackbar>
+      <Loading open={category.loading || food.loading} />
     </>
   );
 };
