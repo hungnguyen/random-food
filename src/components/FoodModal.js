@@ -13,7 +13,7 @@ import { getSingleFood, updateFood, createFood } from "../actions";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
-      margin: theme.spacing(1),
+      marginBottom: theme.spacing(2),
     },
   },
 }));
@@ -37,10 +37,10 @@ function FoodModal({
   const [updateObj, setUpdateObj] = React.useState(init);
 
   React.useEffect(() => {
-    if (foodId !== 0) {
+    if (foodId !== 0 && food.item._id !== foodId) {
       getSingleFood(foodId);
     }
-  }, [foodId, getSingleFood]);
+  }, [foodId, getSingleFood, food.item]);
 
   React.useEffect(() => {
     if (foodId !== 0) {
@@ -59,6 +59,10 @@ function FoodModal({
     } else {
       createFood({ body: updateObj });
     }
+    resetForm();
+    onClose();
+  };
+  const handleClose = () => {
     resetForm();
     onClose();
   };
@@ -92,11 +96,12 @@ function FoodModal({
               value={updateObj.image}
               onChange={handleChange}
               fullWidth
+              multiline
             />
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <Button onClick={handleClose} color="primary">
             Hủy
           </Button>
           <Button onClick={handleSave} color="primary" autoFocus>

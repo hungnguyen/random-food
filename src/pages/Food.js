@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import { CircularProgress, Snackbar, Paper, Slide } from "@material-ui/core";
 
 import FoodItem from "../components/FoodItem";
 import FoodModal from "../components/FoodModal";
@@ -32,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     margin: "0 auto",
     zIndex: 999,
+  },
+  loading: {
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
   },
 }));
 
@@ -69,6 +78,9 @@ function Food({ food, deleteFood, getAllFood, auth }) {
       deleteFood(item._id);
     }
   };
+  const slideTransition = (props) => {
+    return <Slide {...props} direction="down" />;
+  };
   return (
     <>
       <Fab
@@ -101,6 +113,19 @@ function Food({ food, deleteFood, getAllFood, auth }) {
         foodId={foodId}
         categoryId={params.categoryId}
       />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        open={food.loading}
+        TransitionComponent={slideTransition}
+        key=""
+      >
+        <Paper className={classes.loading}>
+          <CircularProgress size={30} />
+        </Paper>
+      </Snackbar>
     </>
   );
 }

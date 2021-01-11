@@ -29,19 +29,19 @@ export default function FoodItem({ item, onEdit, onDelete }) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={onEdit}>
         <CardMedia
           className={classes.media}
           image={item.image}
           title={item.image}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="subtitle1">
             {item.name}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      {/* <CardActions>
         <ButtonGroup
           color="primary"
           aria-label="outlined primary button group"
@@ -50,7 +50,7 @@ export default function FoodItem({ item, onEdit, onDelete }) {
           <Button onClick={onEdit}>Sửa</Button>
           <Button onClick={onDelete}>Xóa</Button>
         </ButtonGroup>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }

@@ -7,6 +7,11 @@ import {
   ListItemAvatar,
   ListItemText,
   Button,
+  CircularProgress,
+  Snackbar,
+  Paper,
+  Slide,
+  Divider,
 } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
@@ -19,7 +24,15 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     marginTop: 30,
     display: "flex",
+    paddingBottom: 50,
+  },
+  loading: {
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
     justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
   },
 }));
 
@@ -49,42 +62,61 @@ const Result = ({
 
     return selected;
   };
+  const slideTransition = (props) => {
+    return <Slide {...props} direction="down" />;
+  };
   return (
-    <Grid container className={classes.root}>
-      {category.list.length > 0 &&
-        food.list.length > 0 &&
-        category.list.map((item) => (
-          <Grid item xs={12}>
-            <Typography variant="h5" gutterBottom>
-              {item.name}
-            </Typography>
-            <List dense={false}>
-              {randomFood(setting.main, item._id).map(
-                (f) =>
-                  f && (
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar alt={f.name} src={f.image} />
-                      </ListItemAvatar>
-                      <ListItemText primary={f.name} />
-                    </ListItem>
-                  )
-              )}
-            </List>
-          </Grid>
-        ))}
-      <Grid item xs={12}>
-        <Button
-          onClick={onBack}
-          color="primary"
-          size="small"
-          variant="contained"
-          endIcon={<Cached />}
-        >
-          Chọn lại
-        </Button>
+    <>
+      <Grid container className={classes.root}>
+        {category.list.length > 0 &&
+          food.list.length > 0 &&
+          category.list.map((item) => (
+            <Grid item xs={12}>
+              <Typography variant="h5" gutterBottom align="left">
+                {item.name}
+              </Typography>
+              <Divider />
+              <List dense={false}>
+                {randomFood(setting.main, item._id).map(
+                  (f) =>
+                    f && (
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar alt={f.name} src={f.image} />
+                        </ListItemAvatar>
+                        <ListItemText primary={f.name} />
+                      </ListItem>
+                    )
+                )}
+              </List>
+            </Grid>
+          ))}
+        <Grid item xs={12}>
+          <Button
+            onClick={onBack}
+            color="primary"
+            size="small"
+            variant="contained"
+            endIcon={<Cached />}
+          >
+            Chọn lại
+          </Button>
+        </Grid>
       </Grid>
-    </Grid>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        open={category.loading || food.loading}
+        TransitionComponent={slideTransition}
+        key=""
+      >
+        <Paper className={classes.loading}>
+          <CircularProgress size={30} />
+        </Paper>
+      </Snackbar>
+    </>
   );
 };
 
