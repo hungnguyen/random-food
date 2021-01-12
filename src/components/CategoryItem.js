@@ -28,9 +28,7 @@ export default function Category({ item }) {
       <CardActionArea>
         <CardContent>
           <NavLink to={`/food/${item._id}`} className={classes.link}>
-            <Icon color={item.color} style={{ fontSize: 30 }}>
-              {item.icon}
-            </Icon>
+            <Icon style={{ fontSize: 50, color: item.color }}>{item.icon}</Icon>
             <Typography gutterBottom variant="h5" component="h2">
               {item.name}
             </Typography>
