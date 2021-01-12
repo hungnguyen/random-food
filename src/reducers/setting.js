@@ -1,10 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-const initState = {
-  main: 1,
-  sub: 1,
-  vegetable: 1,
-  soup: 1,
-};
+const initState = {};
 
 export default function setting(state = initState, action) {
   switch (action.type) {

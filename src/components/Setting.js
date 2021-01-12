@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateSetting } from "../actions";
+import { updateSetting, getAllCategory } from "../actions";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
+import Loading from "../components/Loading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +21,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Setting({ onProcess, setting, updateSetting }) {
+function Setting({
+  onProcess,
+  setting,
+  updateSetting,
+  category,
+  getAllCategory,
+}) {
   const classes = useStyles();
+
+  React.useEffect(() => {
+    getAllCategory();
+  }, [getAllCategory]);
+
+  React.useEffect(() => {
+    if (category.list.length > 0) {
+      let initSetting = {};
+      category.list.length > 0 &&
+        category.list.forEach((item, index) => (initSetting[item._id] = 1));
+      updateSetting(initSetting);
+    }
+  }, [category, updateSetting]);
 
   const handleChange = (event, newValue, name) => {
     updateSetting({ ...setting, [name]: newValue });
@@ -31,54 +51,23 @@ function Setting({ onProcess, setting, updateSetting }) {
     <div className={classes.root}>
       <Grid container justify="center">
         <Grid item xs={10}>
-          <Typography id="discrete-slider-always" gutterBottom>
-            Số lượng món chính
-          </Typography>
-          <Slider
-            onChange={(e, n) => handleChange(e, n, "main")}
-            defaultValue={setting.main}
-            aria-labelledby="discrete-slider-always"
-            step={1}
-            min={1}
-            max={10}
-            valueLabelDisplay="on"
-          />
-          <Typography id="discrete-slider-always" gutterBottom>
-            Số lượng món phụ
-          </Typography>
-          <Slider
-            onChange={(e, n) => handleChange(e, n, "sub")}
-            defaultValue={setting.sub}
-            aria-labelledby="discrete-slider-always"
-            step={1}
-            min={1}
-            max={10}
-            valueLabelDisplay="on"
-          />
-          <Typography id="discrete-slider-always" gutterBottom>
-            Số lượng rau
-          </Typography>
-          <Slider
-            onChange={(e, n) => handleChange(e, n, "vegetable")}
-            defaultValue={setting.vegetable}
-            aria-labelledby="discrete-slider-always"
-            step={1}
-            min={1}
-            max={10}
-            valueLabelDisplay="on"
-          />
-          <Typography id="discrete-slider-always" gutterBottom>
-            Số lượng canh
-          </Typography>
-          <Slider
-            onChange={(e, n) => handleChange(e, n, "soup")}
-            defaultValue={setting.soup}
-            aria-labelledby="discrete-slider-always"
-            step={1}
-            min={1}
-            max={10}
-            valueLabelDisplay="on"
-          />
+          {category.list.length > 0 &&
+            category.list.map((item) => (
+              <>
+                <Typography id="discrete-slider-always" gutterBottom>
+                  Số lượng {item.name}
+                </Typography>
+                <Slider
+                  onChange={(e, n) => handleChange(e, n, item._id)}
+                  defaultValue={1}
+                  aria-labelledby="discrete-slider-always"
+                  step={1}
+                  min={1}
+                  max={10}
+                  valueLabelDisplay="on"
+                />
+              </>
+            ))}
         </Grid>
         <Grid item xs={10}>
           <Button
@@ -87,9 +76,11 @@ function Setting({ onProcess, setting, updateSetting }) {
             size="small"
             variant="contained"
             endIcon={<PlayCircleFilled />}
+            disabled={category.loading}
           >
             Thực hiện
           </Button>
+          <Loading open={category.loading} />
         </Grid>
       </Grid>
     </div>
@@ -98,6 +89,9 @@ function Setting({ onProcess, setting, updateSetting }) {
 
 const mapStateToProps = (state) => ({
   setting: state.setting,
+  category: state.category,
 });
 
-export default connect(mapStateToProps, { updateSetting })(Setting);
+export default connect(mapStateToProps, { updateSetting, getAllCategory })(
+  Setting
+);

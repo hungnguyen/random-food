@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
-import { getAllCategory, getAllFood } from "../actions";
+import { getAllFood } from "../actions";
 import { Cached } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import Loading from "./Loading";
@@ -24,18 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Result = ({
-  category,
-  food,
-  setting,
-  getAllCategory,
-  getAllFood,
-  onBack,
-}) => {
+const Result = ({ category, food, setting, getAllFood, onBack }) => {
   const classes = useStyles();
-  React.useEffect(() => {
-    getAllCategory();
-  }, [getAllCategory]);
+
   React.useEffect(() => {
     getAllFood();
   }, [getAllFood]);
@@ -63,7 +54,7 @@ const Result = ({
               </Typography>
               <Divider />
               <List dense={false}>
-                {randomFood(setting.main, item._id).map(
+                {randomFood(setting[item._id], item._id).map(
                   (f) =>
                     f && (
                       <ListItem>
@@ -100,4 +91,4 @@ const mapStateToProps = (state) => ({
   setting: state.setting,
 });
 
-export default connect(mapStateToProps, { getAllCategory, getAllFood })(Result);
+export default connect(mapStateToProps, { getAllFood })(Result);
