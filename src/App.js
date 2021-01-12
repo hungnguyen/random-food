@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import MasterPage from "./pages/MasterPage";
-import PrivateRoute from "./PrivateRoute";
+//import PrivateRoute from "./PrivateRoute";
 
 function App() {
   return (
@@ -13,9 +13,9 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <PrivateRoute path="/">
+            <Route path="/">
               <MasterPage />
-            </PrivateRoute>
+            </Route>
           </Switch>
         </div>
       </Router>

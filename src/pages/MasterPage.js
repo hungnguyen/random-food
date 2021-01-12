@@ -19,8 +19,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Container from "@material-ui/core/Container";
 import HomeIcon from "@material-ui/icons/Home";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+//import MenuItem from "@material-ui/core/MenuItem";
+//import Menu from "@material-ui/core/Menu";
 import { RestaurantMenu, RoomService } from "@material-ui/icons";
 import { logoutSuccess } from "../actions";
 import { connect } from "react-redux";
@@ -53,16 +53,16 @@ const useStyles = makeStyles((theme) => ({
 const MasterPage = ({ logoutSuccess, auth }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  //const open = Boolean(anchorEl);
   const [value, setValue] = React.useState(0);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  //   const handleClose = () => {
+  //     setAnchorEl(null);
+  //   };
 
   return (
     <Router>
@@ -93,7 +93,7 @@ const MasterPage = ({ logoutSuccess, auth }) => {
             >
               <AccountCircle />
             </IconButton>
-            <Menu
+            {/* <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -110,7 +110,7 @@ const MasterPage = ({ logoutSuccess, auth }) => {
             >
               <MenuItem onClick={handleClose}>{auth.data.name}</MenuItem>
               <MenuItem onClick={logoutSuccess}>Đăng xuất</MenuItem>
-            </Menu>
+            </Menu> */}
           </div>
         </Toolbar>
       </AppBar>
