@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { connect } from "react-redux";
-import { getSingleFood, updateFood, createFood } from "../actions";
+import { updateFood, createFood } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,9 +21,7 @@ const useStyles = makeStyles((theme) => ({
 function FoodModal({
   open,
   onClose,
-  foodId,
   food,
-  getSingleFood,
   updateFood,
   categoryId,
   createFood,
@@ -37,23 +35,18 @@ function FoodModal({
   const [updateObj, setUpdateObj] = React.useState(init);
 
   React.useEffect(() => {
-    if (foodId !== 0 && food.item._id !== foodId) {
-      getSingleFood(foodId);
-    }
-  }, [foodId, getSingleFood, food.item]);
-
-  React.useEffect(() => {
-    if (foodId !== 0) {
+    if (food.item._id) {
       setUpdateObj(food.item);
     }
-  }, [food.item, setUpdateObj, foodId]);
+  }, [food.item, setUpdateObj]);
+
   const resetForm = () => {
     setUpdateObj(init);
   };
   const handleSave = () => {
-    if (foodId !== 0) {
+    if (food.item._id) {
       updateFood({
-        foodId,
+        foodId: food.item._id,
         body: updateObj,
       });
     } else {
@@ -118,7 +111,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getSingleFood,
   updateFood,
   createFood,
 })(FoodModal);

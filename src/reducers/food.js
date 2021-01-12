@@ -42,6 +42,11 @@ export default function food(state = initState, action) {
         loading: false,
         list: state.list.filter((item) => item._id !== action.data),
       };
+    case actionTypes.SELECT_FOOD:
+      return {
+        ...state,
+        item: state.list.find((item) => item._id === action.data),
+      };
     default:
       return state;
   }

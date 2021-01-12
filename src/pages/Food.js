@@ -8,7 +8,7 @@ import FoodItem from "../components/FoodItem";
 import FoodModal from "../components/FoodModal";
 import Loading from "../components/Loading";
 
-import { deleteFood, getAllFood } from "../actions";
+import { deleteFood, getAllFood, selectFood } from "../actions";
 
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Food({ food, deleteFood, getAllFood, auth }) {
+function Food({ food, deleteFood, getAllFood, auth, selectFood }) {
   const params = useParams();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [foodId, setFoodId] = React.useState(0);
+
   const [foodByCat, setFoodByCat] = React.useState([]);
 
   React.useEffect(() => {
@@ -62,7 +62,7 @@ function Food({ food, deleteFood, getAllFood, auth }) {
     setOpen(true);
   };
   const handleEdit = (id) => {
-    setFoodId(id);
+    selectFood(id);
     handleOpen();
   };
   const handleDelete = (item) => {
@@ -100,7 +100,6 @@ function Food({ food, deleteFood, getAllFood, auth }) {
       <FoodModal
         open={open}
         onClose={handleClose}
-        foodId={foodId}
         categoryId={params.categoryId}
       />
       <Loading open={food.loading} />
@@ -112,4 +111,6 @@ const mapStateToProps = (state) => ({
   food: state.food,
 });
 
-export default connect(mapStateToProps, { deleteFood, getAllFood })(Food);
+export default connect(mapStateToProps, { deleteFood, getAllFood, selectFood })(
+  Food
+);

@@ -104,6 +104,11 @@ export const deleteFoodSuccess = (data) => ({
   data,
 });
 
+export const selectFood = (data) => ({
+  type: actionTypes.SELECT_FOOD,
+  data,
+});
+
 //category
 export const getAllCategory = (data) => ({
   type: actionTypes.GET_ALL_CATEGORY,
