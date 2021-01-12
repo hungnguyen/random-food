@@ -35,10 +35,11 @@ function FoodModal({
   const [updateObj, setUpdateObj] = React.useState(init);
 
   React.useEffect(() => {
-    if (food.item._id) {
+    if (food.item._id || (food.item._id && updateObj._id === undefined)) {
+      console.log("a");
       setUpdateObj(food.item);
     }
-  }, [food.item, setUpdateObj]);
+  }, [food.item, setUpdateObj, updateObj._id]);
 
   const resetForm = () => {
     setUpdateObj(init);
