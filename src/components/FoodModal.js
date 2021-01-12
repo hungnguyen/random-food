@@ -36,7 +36,6 @@ function FoodModal({
 
   React.useEffect(() => {
     if (food.item._id || (food.item._id && updateObj._id === undefined)) {
-      console.log("a");
       setUpdateObj(food.item);
     }
   }, [food.item, setUpdateObj, updateObj._id]);
