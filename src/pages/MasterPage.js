@@ -52,12 +52,12 @@ const useStyles = makeStyles((theme) => ({
 
 const MasterPage = ({ logoutSuccess, auth }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  //const [anchorEl, setAnchorEl] = React.useState(null);
   //const open = Boolean(anchorEl);
   const [value, setValue] = React.useState(0);
 
   const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+    //setAnchorEl(event.currentTarget);
   };
 
   //   const handleClose = () => {
