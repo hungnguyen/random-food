@@ -36,12 +36,18 @@ const Result = ({ category, food, setting, getAllFood, onBack }) => {
     let selected = [];
     for (let i = 0; i < total; i++) {
       let index = Math.floor(Math.random() * foodByCat.length);
+      while (isExist(selected, foodByCat[index])) {
+        index = Math.floor(Math.random() * foodByCat.length);
+      }
       selected.push(foodByCat[index]);
     }
 
     return selected;
   };
-
+  function isExist(arr, obj) {
+    let index = arr.findIndex((item) => item._id === obj._id);
+    return index >= 0;
+  }
   return (
     <>
       <Grid container className={classes.root}>
